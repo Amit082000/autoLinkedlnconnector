@@ -25,7 +25,7 @@ function sendConnectionRequests() {
             
             // Wait for the popup and click "Send without a note" if it appears
             setTimeout(() => {
-                const sendWithoutNoteButton = document.querySelector('button[aria-label="Send now"]');
+                const sendWithoutNoteButton = document.querySelector('button[aria-label="Send without a note"]');
                 if (sendWithoutNoteButton) {
                     sendWithoutNoteButton.click(); // Automatically send the request without a note
                 }
