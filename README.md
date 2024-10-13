@@ -1,4 +1,4 @@
-#Auto Linkedln Connect Chrome Extension
+# Auto Linkedln Connect Chrome Extension
 
 This Chrome extension automates sending connection requests on LinkedIn. The extension detects the "Connect" buttons on LinkedIn search result pages and clicks them automatically, allowing users to easily send multiple connection requests. Users can stop the process at any time and restart as needed. The extension also keeps track of how many connection requests have been sent.
 
@@ -26,7 +26,7 @@ To install the extension, follow these steps:
   ```
 - Click the "Load unpacked" button and select the unzipped folder.
 
-##How It Works
+## How It Works
 
 - Navigate to the LinkedIn search page where you would like to send connection requests.
   ```
@@ -37,7 +37,7 @@ To install the extension, follow these steps:
 - The extension will automatically send connection requests to all the users listed on the search page.
 - Once the requests have been sent,the popup displays the number of total connections available on the current page and the number of connections that have been successfully sent.
 
-##Important Notes
+## Important Notes
 
 This extension requires the following permissions:
 
