@@ -1,42 +1,56 @@
-document.getElementById('start').addEventListener('click', () => {
-    // Clear any previous messages and update status
-    const statusMessage = document.getElementById('progress-text');
-    statusMessage.innerText = ''; // Clear previous messages
 
-    // Update status message to indicate sending requests
+document.getElementById('start').addEventListener('click', () => {
+    const statusMessage = document.getElementById('progress-text');
+    statusMessage.innerText = ''; 
+
+    // Update status message 
     statusMessage.innerText = 'Sending connection requests...';
 
-    // Get the active tab and inject the content script if necessary
+    document.getElementById('stop').style.display = 'block';
+    document.getElementById('start').style.display = 'none';
+
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        // Programmatically inject the content script if it hasn't been loaded
         chrome.scripting.executeScript({
             target: { tabId: tabs[0].id },
             files: ['./scripts/content.js']
         }, () => {
-            // After injecting the content script, send the message to start sending requests
             chrome.tabs.sendMessage(tabs[0].id, { action: 'startSendingRequests' });
         });
     });
 });
 
-// Listen for messages from the content script
+// Add event listener for  Stop 
+document.getElementById('stop').addEventListener('click', () => {
+    const statusMessage = document.getElementById('progress-text');
+
+    document.getElementById('stop').style.display = 'none';
+    document.getElementById('start').style.display = 'block';
+
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        chrome.tabs.sendMessage(tabs[0].id, { action: 'stopSendingRequests' });
+    });
+});
+
+
+
+// Listen for messages from script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'completeRequests') {
         const statusMessage = document.getElementById('progress-text');
-        statusMessage.innerText = `All connection requests sent: ${request.totalConnections}`; // Final message
+        statusMessage.innerText = `All connection requests sent: ${request.totalConnections}`; 
+        document.getElementById('stop').style.display = 'none'; 
+        document.getElementById('start').style.display = 'block';
     } else if (request.action === 'updateProgress') {
-        // Update the progress bar based on received data
         const { connectionsSent, totalConnections } = request;
         updateProgressBar(connectionsSent, totalConnections);
     }
 });
 
-// Update the progress bar and text
+// Update the progress bar & text
 function updateProgressBar(connectionsSent, totalConnections) {
     const progressBar = document.getElementById('progress-bar');
     const progressText = document.getElementById('progress-text');
 
-    // Check if the progressBar and progressText exist
     if (progressBar && progressText) {
         const percentage = (connectionsSent / totalConnections) * 100;
         progressBar.style.width = percentage + '%';
@@ -45,3 +59,4 @@ function updateProgressBar(connectionsSent, totalConnections) {
         console.warn('Progress bar or text element not found in the DOM.');
     }
 }
+
