@@ -34,9 +34,25 @@ p {
   font-size: 14px;
 }
 
-.btn-primary,
-.btn-secondary {
+.btn-primary{
   background-color: #0073b1;
+  color: #ffffff;
+  padding: 10px;
+  width: 80%;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+  display: block; 
+  margin-left: auto; 
+  margin-right: auto; 
+
+
+}
+.btn-secondary {
+  background-color: #d44107;
   color: #ffffff;
   padding: 10px;
   width: 80%;
